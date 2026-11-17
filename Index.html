@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>36th Batch Representative Vote</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#f4f7ff;--dim:rgba(244,247,255,.68);--bg:#070b1d;--a:#7c5cff;--b:#25d4ff;--c:#ff5ca8}
+*{box-sizing:border-box;margin:0}
+html,body{min-height:100%}
+body{font-family:'Sora',system-ui,sans-serif;color:var(--ink);background:var(--bg);padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);overflow-x:hidden}
+.blobs{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.blobs i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.85;animation:drift 22s ease-in-out infinite alternate}
+.blobs i:nth-child(1){width:60vmax;height:60vmax;background:var(--a);top:-18vmax;left:-14vmax}
+.blobs i:nth-child(2){width:52vmax;height:52vmax;background:var(--b);bottom:-16vmax;right:-14vmax;animation-delay:-8s}
+.blobs i:nth-child(3){width:34vmax;height:34vmax;background:var(--c);top:38%;left:42%;opacity:.55;animation-delay:-14s}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+@media(prefers-reduced-motion:reduce){.blobs i{animation:none}*{transition:none!important}}
+main{max-width:560px;margin:0 auto;padding:22px 16px 48px}
+.glass{background:linear-gradient(140deg,rgba(255,255,255,.24),rgba(255,255,255,.05));-webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);border:1.5px solid rgba(255,255,255,.3);border-radius:34px;box-shadow:inset 0 3px 2px rgba(255,255,255,.6),inset 0 -10px 22px rgba(255,255,255,.07),inset 0 0 0 6px rgba(255,255,255,.04),0 24px 60px rgba(0,0,0,.45)}
+.card{padding:28px 22px;margin-top:18px}
+h1{font-size:clamp(26px,7vw,34px);font-weight:800;line-height:1.1;letter-spacing:-.02em}
+h2{font-size:22px;font-weight:800;letter-spacing:-.01em}
+p.sub{color:var(--dim);font-size:14px;line-height:1.55;margin-top:10px}
+.tabs{display:flex;gap:6px;padding:6px;margin-top:18px;border-radius:999px}
+.tabs button{flex:1;border:0;border-radius:999px;padding:12px;font:600 14px 'Sora',sans-serif;color:var(--dim);background:transparent;cursor:pointer;transition:.25s}
+.tabs button.on{color:#fff;background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.12));box-shadow:inset 0 2px 1px rgba(255,255,255,.6),0 6px 16px rgba(0,0,0,.25)}
+label.f{display:block;margin-top:18px;font-size:13px;font-weight:600;color:var(--dim)}
+input[type=text],input[type=tel],select{width:100%;margin-top:8px;padding:16px 18px;border-radius:20px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font:400 16px 'Sora',sans-serif;outline:0;box-shadow:inset 0 3px 8px rgba(0,0,0,.25);transition:.2s}
+input::placeholder{color:rgba(255,255,255,.4)}
+input:focus,select:focus{border-color:var(--b);box-shadow:inset 0 3px 8px rgba(0,0,0,.25),0 0 0 4px rgba(37,212,255,.25)}
+select option{color:#111}
+.btn{width:100%;margin-top:24px;padding:18px;border:0;border-radius:22px;font:800 16px 'Sora',sans-serif;color:#fff;cursor:pointer;background:linear-gradient(135deg,var(--a),var(--b));box-shadow:inset 0 3px 2px rgba(255,255,255,.55),inset 0 -6px 12px rgba(0,0,0,.18),0 14px 30px rgba(80,90,255,.45);transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.5}
+.ghost{background:rgba(255,255,255,.12);box-shadow:inset 0 2px 1px rgba(255,255,255,.4)}
+.err{margin-top:14px;color:#ffb3c8;font-weight:600;font-size:15px;min-height:20px;line-height:1.4}
+.meter{position:sticky;top:8px;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:12px 18px;margin-top:16px;border-radius:999px;font-size:14px;font-weight:600}
+.meter b{font-size:18px}
+.list{margin-top:14px;display:grid;gap:8px}
+.row{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:22px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.14);cursor:pointer;transition:.2s}
+.row.on{background:linear-gradient(135deg,rgba(124,92,255,.55),rgba(37,212,255,.35));border-color:rgba(255,255,255,.55);box-shadow:inset 0 2px 1px rgba(255,255,255,.5)}
+.row.off{opacity:.4}
+.row input{display:none}
+.tick{flex:none;width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.5);display:grid;place-items:center;font-size:14px;color:transparent}
+.row.on .tick{background:#fff;color:#5a3df0;border-color:#fff}
+.nm{font-size:14px;line-height:1.35;font-weight:600}
+.ix{font-size:12px;color:var(--dim);margin-top:2px}
+.sb{display:grid;gap:12px;margin-top:18px}
+.sr{padding:14px 16px;border-radius:22px;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.14)}
+.sr .t{display:flex;justify-content:space-between;gap:10px;font-size:14px;font-weight:600}
+.sr .t span:last-child{font-weight:800;font-size:18px;white-space:nowrap}
+.bar{height:10px;margin-top:10px;border-radius:99px;background:rgba(0,0,0,.28);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.sg{font-size:12px;color:var(--dim);margin-top:6px}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim)}
+.live::before{content:"";width:9px;height:9px;border-radius:50%;background:#3dff9a;box-shadow:0 0 12px #3dff9a}
+.hide{display:none}
+.big{font-size:56px;text-align:center}
+</style>
+</head>
+<body>
+<div class="blobs"><i></i><i></i><i></i></div>
+<main>
+  <header>
+    <h1>Choose your batch representative</h1>
+    <p class="sub">36th Batch, Faculty of Medical Sciences, University of Sri Jayewardenepura</p>
+  </header>
+
+  <nav class="tabs glass" style="border-radius:999px">
+    <button id="tVote" class="on">Vote</button>
+    <button id="tScore">Live scoreboard</button>
+  </nav>
+
+  <!-- Step 1 -->
+  <section id="s1" class="card glass">
+    <h2>Your details</h2>
+    <label class="f">Full name
+      <input id="name" type="text" autocomplete="name" placeholder="Your name">
+    </label>
+    <label class="f">Index number
+      <input id="idx" type="text" autocapitalize="characters" placeholder="MED/000/36">
+    </label>
+    <label class="f">Phone number
+      <input id="phone" type="tel" inputmode="numeric" placeholder="07XXXXXXXX">
+    </label>
+    <div class="err" id="e1"></div>
+    <button class="btn" id="next">Continue</button>
+  </section>
+
+  <!-- Step 2 -->
+  <section id="s2" class="hide">
+    <div class="card glass" style="margin-top:14px">
+      <h2>Suggest a representative</h2>
+      <p class="sub">Optional. Pick any student, yourself included. They join the voting list for everyone.</p>
+      <select id="sug"></select>
+    </div>
+    <div class="meter glass"><span>Votes chosen</span><b id="cnt">0 / 3</b></div>
+    <div class="card glass" style="margin-top:14px">
+      <h2>Vote for up to 3</h2>
+      <p class="sub">Only suggested students appear here. Tap a name to vote, tap again to remove.</p>
+      <input id="q" type="text" placeholder="Search candidates" style="margin-top:16px">
+      <div class="list" id="list"></div>
+      <div class="err" id="e2"></div>
+      <button class="btn" id="submit">Submit my vote</button>
+      <button class="btn ghost" id="back">Back</button>
+    </div>
+  </section>
+
+  <!-- Done -->
+  <section id="s4" class="card glass hide" style="text-align:center">
+    <div class="big">✓</div>
+    <h2 style="margin-top:10px">Vote submitted</h2>
+    <p class="sub">Thank you. Open the live scoreboard to see the results update.</p>
+    <button class="btn" id="seeScore">View live scoreboard</button>
+  </section>
+
+  <!-- Scoreboard -->
+  <section id="s3" class="card glass hide">
+    <h2>Live scoreboard</h2>
+    <div class="live" style="margin-top:10px">Updating live</div>
+    <div class="sb" id="sb"><p class="sub">No votes yet.</p></div>
+  </section>
+</main>
+
+<script type="module">
+
+/* 1. PASTE YOUR FIREBASE CONFIG HERE */
+const firebaseConfig = {
+  apiKey: "PASTE_API_KEY",
+  authDomain: "PASTE_AUTH_DOMAIN",
+  projectId: "PASTE_PROJECT_ID",
+  appId: "PASTE_APP_ID"
+};
+
+let fb = null, db = null;
+
+const RAW = `001|DON SASHIKA SUGANDIKA ABEYWICKRAMA
+002|THEIVENDRAN ABIDSHAN
+003|SENTHILNATHAN ADSHAYAN
+004|HALEEM AQDAS AHAMED
+005|DUNUHINGA RANERU AKASH
+007|YASIRU DINAL AMARAWEERA
+011|NIMANTHA AKALPA KASTHURI ARACHCHI
+022|BERGERGE HIMASAL ANJALO BOLONNE
+026|CHATHUKA CHIRATHMA DE SILVA
+029|DEVSADH PEIRIS DERANIYAGALA
+033|KODIPPILI KANKANAMGE CHIRAN DULNITH DIAS
+036|RATHNAYAKE MUDIYANSELAGE MANUL DULNETH DISSANAYAKE
+039|GALLAGE RAMIDU DIVYANJANA
+042|KORUWAGE SENUKA DINSATH FERNANDO
+044|WANNAKUWATHTHA WADUGE MALIKA CHATHMAL FERNANDO
+050|AMUGODA ARACHCHIGE NADIW NIMSETH GUNAWARDANA
+053|KODITHUWAKKU ARACHCHIGEI ANJULA HASARANGA
+054|HATHNAPITIYA GAMAETHIRALALAGE DILUM KAVEED HATHNAPITIYA
+061|JAYANETHTHI KORALALAGE SHAVIN THISARU JAYANETHTHI
+063|PATHIGODAGE PAWAN RASANJANA DIAS JAYAWARDHANA
+066|JINUKA THINAL METHMIN KANNANGARA
+067|VICKNESWARAN KARISZAN
+070|KATUGAMPALA LEKAMLAGE CHAMIKA PRIYASHAN KATUGAMPALA
+075|ADIL ISHAN KHAN
+076|SEGAR HARI KRISHNA
+077|BOPAGE NEHAN VIRANDITH KULATHUNGA
+081|LIYANA ARACHCHIGE BINUPA WIVANJITH LIYANAGE
+082|SETHIKA LINATH LIYANAGE
+083|LINKESWARAN LUXSHIHAN
+084|DEWUNDARAGEYI NETHSARA MADHUSHAN
+089|GANEGAMAGE OSANDA MALSITH
+092|MARASINGHE PATHIRAJAGE CHIRANTHAKA DAMSARA MARASINGHE
+097|LEWWANDUWA WITHANAGE INUJA INSITHA MUNASINGHE
+099|MOHAMED NAKEER MOHAMED NAHDI
+106|WICKRAMARATHNA GUNASEKARA DINUJA NIDUHANSA
+108|NAIMMANAGE NIPUN NIMSARA
+109|IDIPPILI PATHIRANAGE SADEESHA SANEETHU NIMSATH
+111|RANASINGHE ARACHCHILAGE CHETHAKA NUSHAN
+115|KOSPELA WATHTHAGE KASUN PEHESARA
+121|SIVAKUMAR PIRANAVAN
+126|LOKU BALASURIYAGE DON SHANILKA PRABHATHANA
+129|RAJAPAKSHA DISSANAYAKA MUDIYANSELAGE CHAMATH LAKVINDU RAJAPAKSHA
+130|RAJAPAKSHA MUDIYANSELAGE NETHMIRA DIHEN RAJAPAKSHA
+131|SENANAYAKA JAYASINGHA MUDIYANSELAGE NEJANA VIDUSAHAN RAJAPAKSHA
+134|RATHNAYAKE MUDIYANSELAGE MINUPA ANUSARA RATHNAYAKE
+136|RUBASINHA GAMAGE JAYARU HASHEN SACHITHRAKA
+137|ISLAMDEEN SAHIB AAMIR ALI SAHIB
+142|MATHOTA ARACHCHIGE DON MERADA SASIRI SAMARAWEERA
+144|DARANIYAGALA ARACHCHILAGE SITHUM PAHASARA SANDESH
+145|HAPUTHANTHRIGE CHALIDU SANKALPA
+146|MOHAMED FAIZER MOHAMED SAREEF
+150|ANUDA INDEEPA SENEVIRATNE
+151|LENADUWA LOKUGE VINUTH SENHAS
+155|LIYANAGE UMESH SHYAMAL SILVA
+156|YAKDEHIGE DANUKA DINUSHAN THILAKARATHNA SILVA
+157|THISE APPUHAMILAGE ADITHYA KUSAL SIRIWARDHANA
+166|RIYAL MAHAMED THASNEEM
+168|KALU ARACHCHIGE DON CHAMALKA THUSHAN
+171|ARAVINDAN VENUKAN
+172|BALAKUMAR VENUKANAN
+173|SIVANJAN VITHUSHAN
+174|DINU HANSITH WALPOLA
+175|GEETH MIHIRANGA WANIGABADU
+177|KADANPITA GAMLATHGE DEVEEN CHANSUKA WEERANARAYANA
+180|PUNSARA MADUSHA WICKRAMASINGHE
+181|CHAMIDU WIJAYARATHNA
+182|KOTIGALAGE ASHEN EVINDU PERERA WIJEGUNAWARDHANA
+183|KUSINDU NIMSARA METHSITH WIJERATHNA
+186|PAHALAYALAGE DINUJA HIMSHAN WIJESINGHE
+189|WEESINGHE MUDIYANSELAGE DILAKSHA PAWAN WIMALASOORIYA
+192|AMUGODA GANITHAGE ADEEPA YASHOHARA
+194|MUHAMMAD SHIRAZ MUHAMMAD YUNUS`;
+
+const tc = s => s.toLowerCase().replace(/\b[a-z]/g, c => c.toUpperCase());
+const STUDENTS = RAW.split("\n").map(l => { const [n, name] = l.split("|"); return {n, name: tc(name)}; });
+const BY = Object.fromEntries(STUDENTS.map(s => [s.n, s]));
+const $ = id => document.getElementById(id);
+const picks = new Set();
+const cand = new Map();
+let pend = "";
+const pool = () => STUDENTS.filter(s => cand.has(s.n) || s.n === pend);
+let me = {};
+
+/* views */
+const views = ["s1","s2","s3","s4"];
+function show(id){ views.forEach(v => $(v).classList.toggle("hide", v !== id)); window.scrollTo({top:0,behavior:"smooth"}); }
+function tab(which){
+  $("tVote").classList.toggle("on", which === "vote");
+  $("tScore").classList.toggle("on", which === "score");
+}
+$("tVote").onclick = () => { tab("vote"); show(localStorage.getItem("voted36") ? "s4" : (me.idx ? "s2" : "s1")); };
+$("tScore").onclick = () => { tab("score"); show("s3"); };
+$("seeScore").onclick = () => $("tScore").click();
+
+/* step 1 */
+$("next").onclick = () => {
+  const name = $("name").value.trim();
+  const rawIdx = $("idx").value.trim().toUpperCase().replace(/\s+/g, "");
+  const im = rawIdx.match(/^(?:MED\/?)?(\d{1,3})(?:\/36)?$/);
+  const idx = im ? "MED/" + im[1].padStart(3, "0") + "/36" : rawIdx;
+  const phone = $("phone").value.trim().replace(/[\s-]/g, "").replace(/^\+?94/, "0");
+  const e = $("e1");
+  if (name.length < 3) return e.textContent = "Enter your full name.";
+  if (!/^MED\/\d{3}\/36$/.test(idx)) return e.textContent = "Enter your index number like MED/001/36.";
+  if (!/^0\d{9}$/.test(phone)) return e.textContent = "Enter a 10-digit phone number starting with 0.";
+  if (localStorage.getItem("voted36")) { e.textContent = "This device has already submitted a vote."; return; }
+  e.textContent = "";
+  me = {name, idx, phone};
+  show("s2");
+};
+$("back").onclick = () => show("s1");
+
+/* step 2 */
+function renderList(){
+  const q = $("q").value.trim().toLowerCase();
+  const full = picks.size >= 3;
+  $("list").innerHTML = pool()
+    .filter(s => !q || s.name.toLowerCase().includes(q) || s.n.includes(q))
+    .map(s => {
+      const on = picks.has(s.n);
+      return `<label class="row ${on ? "on" : (full ? "off" : "")}" data-n="${s.n}">
+        <span class="tick">✓</span>
+        <span><div class="nm">${s.name}</div><div class="ix">MED/${s.n}/36</div></span></label>`;
+    }).join("") || `<p class="sub">${pool().length ? "No match found." : "No candidates yet. Suggest someone above to start the list."}</p>`;
+  $("cnt").textContent = picks.size + " / 3";
+}
+$("list").onclick = ev => {
+  const row = ev.target.closest(".row"); if (!row) return;
+  ev.preventDefault();
+  const n = row.dataset.n;
+  if (picks.has(n)) picks.delete(n);
+  else if (picks.size < 3) picks.add(n);
+  renderList();
+};
+$("q").oninput = renderList;
+$("sug").innerHTML = `<option value="">No suggestion</option>` + STUDENTS.map(s => `<option value="${s.n}">MED/${s.n}/36 — ${s.name}</option>`).join("");
+$("sug").onchange = () => { const old = pend; pend = $("sug").value; if (old && old !== pend && !cand.has(old)) picks.delete(old); renderList(); };
+renderList();
+
+$("submit").onclick = async () => {
+  const e = $("e2"), btn = $("submit");
+  if (picks.size < 1) return e.textContent = "Choose at least one student to vote for.";
+  e.textContent = ""; btn.disabled = true; btn.textContent = "Submitting…";
+  const sug = $("sug").value;
+  try{
+    if (!fb) throw new Error("Firebase not loaded");
+    const {writeBatch, doc, increment, serverTimestamp} = fb;
+    const b = writeBatch(db);
+    b.set(doc(db, "votes", me.idx.replace(/\//g, "_")), {
+      name: me.name, index: me.idx, phone: me.phone,
+      picks: [...picks], suggestion: sug || null, at: serverTimestamp()
+    });
+    picks.forEach(n => b.set(doc(db, "tally", n), {votes: increment(1)}, {merge: true}));
+    if (sug) b.set(doc(db, "tally", sug), {sugg: increment(1)}, {merge: true});
+    await b.commit();
+    localStorage.setItem("voted36", "1");
+    show("s4");
+  }catch(err){
+    console.error(err);
+    e.textContent = /permission|exists|denied/i.test(err.message)
+      ? "This index number has already voted."
+      : "Could not submit. Check your connection and try again.";
+    btn.disabled = false; btn.textContent = "Submit my vote";
+  }
+};
+
+/* live scoreboard */
+function startBoard(){ fb.onSnapshot(fb.collection(db, "tally"), snap => {
+  cand.clear(); snap.docs.forEach(d => { if ((d.data().sugg || 0) > 0) cand.set(d.id, 1); }); renderList();
+  const rows = snap.docs.map(d => ({n: d.id, v: d.data().votes || 0, s: d.data().sugg || 0}))
+    .filter(r => BY[r.n] && (r.v || r.s))
+    .sort((a, b) => b.v - a.v || b.s - a.s);
+  if (!rows.length){ $("sb").innerHTML = `<p class="sub">No votes yet.</p>`; return; }
+  const max = Math.max(1, ...rows.map(r => r.v));
+  $("sb").innerHTML = rows.map(r => `
+    <div class="sr"><div class="t"><span>${BY[r.n].name}</span><span>${r.v}</span></div>
+    <div class="bar"><i style="width:${Math.round(r.v / max * 100)}%"></i></div>
+    ${r.s ? `<div class="sg">Suggested by ${r.s} ${r.s === 1 ? "voter" : "voters"}</div>` : ""}</div>`).join("");
+}, err => { $("sb").innerHTML = `<p class="sub">Scoreboard unavailable. Check your Firebase setup.</p>`; console.error(err); });
+}
+
+/* Firebase loads after the form is already working */
+(async () => {
+  try{
+    const app = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+    fb = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+    db = fb.getFirestore(app.initializeApp(firebaseConfig));
+    startBoard();
+  }catch(err){
+    console.error(err);
+    $("sb").innerHTML = `<p class="sub">Scoreboard unavailable. Check your Firebase setup.</p>`;
+  }
+})();
+</script>
+</body>
+</html>
