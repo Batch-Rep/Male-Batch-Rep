@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>36th Batch Representative Vote</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
+<style>
 :root{--ink:#f4f7ff;--dim:rgba(244,247,255,.68);--bg:#070b1d;--a:#7c5cff;--b:#25d4ff;--c:#ff5ca8}
 *{box-sizing:border-box;margin:0}
 html,body{min-height:100%}
@@ -126,7 +126,7 @@ select option{color:#111}
 
 <script type="module">
 
-/* 1. PASTE YOUR FIREBASE CONFIG HERE */
+/* Firebase config */
 const firebaseConfig = {
   apiKey: "AIzaSyDh1RMlDxywrZ1_6a6hCPLlC9GXozf9LB0",
   authDomain: "batch-rep.firebaseapp.com",
@@ -228,7 +228,7 @@ function tab(which){
   $("tVote").classList.toggle("on", which === "vote");
   $("tScore").classList.toggle("on", which === "score");
 }
-$("tVote").onclick = () => { tab("vote"); show(localStorage.getItem("voted36") ? "s4" : (me.idx ? "s2" : "s1")); };
+$("tVote").onclick = () => { tab("vote"); show(me.idx ? "s2" : "s1"); };
 $("tScore").onclick = () => { tab("score"); show("s3"); };
 $("seeScore").onclick = () => $("tScore").click();
 
@@ -243,7 +243,6 @@ $("next").onclick = () => {
   if (name.length < 3) return e.textContent = "Enter your full name.";
   if (!/^MED\/\d{3}\/36$/.test(idx)) return e.textContent = "Enter your index number like MED/001/36.";
   if (!/^0\d{9}$/.test(phone)) return e.textContent = "Enter a 10-digit phone number starting with 0.";
-  if (localStorage.getItem("voted36")) { e.textContent = "This device has already submitted a vote."; return; }
   e.textContent = "";
   me = {name, idx, phone};
   show("s2");
@@ -293,15 +292,19 @@ $("submit").onclick = async () => {
     picks.forEach(n => b.set(doc(db, "tally", n), {votes: increment(1)}, {merge: true}));
     if (sug) b.set(doc(db, "tally", sug), {sugg: increment(1)}, {merge: true});
     await b.commit();
-    localStorage.setItem("voted36", "1");
+    picks.clear(); pend = ""; $("sug").value = ""; me = {};
+    $("name").value = ""; $("idx").value = ""; $("phone").value = "";
+    renderList();
     show("s4");
   }catch(err){
     console.error(err);
     e.textContent = /permission|exists|denied/i.test(err.message)
       ? "This index number has already voted."
-      : "Could not submit. Check your connection and try again.";
+      : "Could not submit: " + (err.code || err.message);
     btn.disabled = false; btn.textContent = "Submit my vote";
+    return;
   }
+  btn.disabled = false; btn.textContent = "Submit my vote";
 };
 
 /* live scoreboard */
